@@ -74,7 +74,7 @@ public class Validation {
         return true;
     }
     
-     public boolean checkDate (String dateString) {
+    public boolean checkDate (String dateString) {
         Pattern dateRegexPattern = Pattern.compile("(0?[1-9]|[12][0-9]|3[01])/(0?[1-9]|1[012])/((19|20)\\d\\d)");
            
         Matcher dateMatcher = dateRegexPattern.matcher(dateString);
@@ -107,6 +107,27 @@ public class Validation {
                return false;
            }
         } else {
+            return false;
+        }
+    }
+
+    public boolean checkType (String inp) {
+        try {
+            int x = Integer.parseInt(inp);
+            if (x == 1 || x == 2 || x == 3) {
+                return true;
+            }
+        } catch (NumberFormatException e) {
+            return false;
+        }
+        return false;
+    }
+
+    public boolean checkInt (String inp) {
+        try {
+            Integer.parseInt(inp);
+            return true;
+        } catch (NumberFormatException e) {
             return false;
         }
     }
