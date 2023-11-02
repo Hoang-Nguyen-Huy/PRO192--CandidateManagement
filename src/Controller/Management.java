@@ -45,9 +45,44 @@ public class Management {
         } while(!valid.checkEmail(email));
         return email;
     }
+    public int enterType() {
+        String inp;
+        do {
+            System.out.print("Enter candidate type(1.Experience, 2.Fresher, 3.Intern): ");
+            inp = sc.nextLine();
+        } while(!valid.checkType(inp));
+        return Integer.parseInt(inp);
+    }
+
+    public int enterExpYear() {
+        String inp;
+        do {
+            System.out.print("Enter experience year: ");
+            inp = sc.nextLine();
+        } while (!valid.checkInt(inp));
+        return Integer.parseInt(inp);
+    }
 
 
     public void add() {
+        //các thông tin có thể có thêm
+        int expYear;
+        String proSkill;
+        //.. ExpCandidates
+
+        Date graduationDate = null;
+        String graduationRank;
+        String education;
+        //..Fresher
+
+        String major;
+        int semester;
+        String UniversityName;
+        //..Intern
+
+        //----------------------
+
+        // nhập thông tin Candidate
         System.out.print("First name.");
         String first = enterName();
         System.out.print("Last name. ");
@@ -70,6 +105,15 @@ public class Management {
         }
         String phone = enterPhone();
         String email = enterEmail();
+        int type = enterType();
+        if (type == 1) {
+
+        } else if (type == 2) {
+
+        } else if (type == 3) {
+
+        }
+        // nhập xong thông tin
 
         //lấy dữ liệu từ file để kiểm tra trong file đã có bao nhiêu Candidates
         ArrayList<Candidates> check = FileHandler.readFromFile(fileName);
