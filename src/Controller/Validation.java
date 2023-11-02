@@ -37,9 +37,19 @@ public class Validation {
             System.out.println("Phone numbers can only contain digits");
             return false;
         }
+
+        if (!inp.matches("^0[0-9]{9}$")) {
+            System.out.println("Invalid phone number format. It should start with 0 and followed by 9 digits");
+            return false;
+        }
         
         if (inp.length() != 10) {
             System.out.println("Phone must be have 10 characters");
+            return false;
+        }
+
+        if (!FileHandler.duplicate(inp, Management.fileName)) {
+            System.out.println("Duplicated phone number !!!");
             return false;
         }
         return true;
@@ -54,6 +64,11 @@ public class Validation {
         String emailRegex = "^[A-Za-z0-9+_.-]+@(.+)$";
         if(!inp.matches(emailRegex)) {
             System.out.println("Email is not valid!!!");
+            return false;
+        }
+
+        if (!FileHandler.duplicate(inp, Management.fileName)) {
+            System.out.println("Duplicated email!!!");
             return false;
         }
         return true;
