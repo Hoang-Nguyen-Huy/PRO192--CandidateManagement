@@ -5,6 +5,7 @@
  */
 package Model;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 /**
@@ -75,6 +76,14 @@ public class Candidates {
     public void setEmail(String Email) {
         this.Email = Email;
     }
-    
+
+    @Override
+    public String toString() {
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+        String formattedDob = sdf.format(BirthDate);
+        String formattedString = String.format("%-10s%-10s%-20s%-15s%-30s%-30s",
+                CandidateID, FirstName, LastName, formattedDob, Phone, Email);
+        return formattedString;
+    }
     
 }
