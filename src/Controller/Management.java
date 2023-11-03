@@ -6,7 +6,11 @@
 package Controller;
 
 import Model.Candidates;
+import Model.ExpCandidates;
+import Model.FresherCandidates;
+import Model.InternCandidates;
 
+import java.io.PrintWriter;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -53,7 +57,6 @@ public class Management {
         } while(!valid.checkType(inp));
         return Integer.parseInt(inp);
     }
-
     public int enterExpYear() {
         String inp;
         do {
@@ -62,10 +65,59 @@ public class Management {
         } while (!valid.checkInt(inp));
         return Integer.parseInt(inp);
     }
-
+    public String enterSkill() {
+        String inp;
+        do {
+            System.out.print("Enter your best skill: ");
+            inp = sc.nextLine();
+        } while(!valid.checkName(inp));
+        return inp;
+    }
+    public String enterRank() {
+        String inp;
+        do {
+            System.out.println("Which one is your Rank: [Excellent] || [Good] || [Bad]");
+            inp = sc.nextLine();
+        } while(!valid.checkRank(inp));
+        return inp;
+    }
+    public String enterEducation() {
+        String inp;
+        do {
+            System.out.print("Enter your education: ");
+            inp = sc.nextLine();
+        } while(!valid.checkName(inp));
+        return inp;
+    }
+    public String enterMajor() {
+        String inp;
+        do {
+            System.out.print("Enter your major: ");
+            inp = sc.nextLine();
+        } while(!valid.checkName(inp));
+        return inp;
+    }
+    public int enterSemester() {
+        String inp;
+        do {
+            System.out.print("Enter your present semester (a number): ");
+            inp = sc.nextLine();
+        } while(!valid.checkInt(inp));
+        return Integer.parseInt(inp);
+    }
+    public String enterUniversityName () {
+        String inp;
+        do {
+            System.out.print("Enter your University: ");
+            inp = sc.nextLine();
+        } while(!valid.checkName(inp));
+        return inp;
+    }
 
     public void add() {
         //các thông tin có thể có thêm
+        Candidates candidates = null;
+
         int expYear;
         String proSkill;
         //.. ExpCandidates
@@ -105,15 +157,6 @@ public class Management {
         }
         String phone = enterPhone();
         String email = enterEmail();
-        int type = enterType();
-        if (type == 1) {
-
-        } else if (type == 2) {
-
-        } else if (type == 3) {
-
-        }
-        // nhập xong thông tin
 
         //lấy dữ liệu từ file để kiểm tra trong file đã có bao nhiêu Candidates
         ArrayList<Candidates> check = FileHandler.readFromFile(fileName);
@@ -127,9 +170,41 @@ public class Management {
             candidateID = String.format("C%03d", lastID + 1);
         }
 
+        int type = enterType();
+        if (type == 1) {
+            expYear = enterExpYear();
+            proSkill = enterSkill();
+            candidates = new ExpCandidates(candidateID, first, last, DOB, phone, email, expYear, proSkill);
+        } else if (type == 2) {
+            String gD = "";
+            boolean isEnterGraduationDate = true;
+            while(isEnterGraduationDate) {
+                do {
+                    System.out.print("Enter graduation date (dd/MM/yyyy): ");
+                    gD = sc.nextLine();
+                } while(!valid.checkDate(gD));
+                SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+                try {
+                    graduationDate = sdf.parse(gD);
+                    isEnterGraduationDate = false;
+                } catch (Exception e) {
+                    isEnterGraduationDate = true;
+                }
+            }
+            graduationRank = enterRank();
+            education = enterEducation();
+            candidates = new FresherCandidates(candidateID, first, last, DOB, phone, email, graduationDate, graduationRank, education);
+        } else if (type == 3) {
+            major = enterMajor();
+            semester = enterSemester();
+            UniversityName = enterUniversityName();
+            candidates = new InternCandidates(candidateID, first, last, DOB, phone, email, major, semester, UniversityName);
+        }
+        // nhập xong thông tin
+
+
         ArrayList<Candidates> list = new ArrayList<Candidates>();
-        Candidates newCandidate = new Candidates(candidateID, first, last, DOB, phone, email);
-        list.add(newCandidate);
+        list.add(candidates);
 
         // ghi thông tin Candidate vào file
         FileHandler.writeToFile(list, fileName);

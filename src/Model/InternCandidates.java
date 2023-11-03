@@ -5,6 +5,7 @@
  */
 package Model;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 /**
@@ -46,7 +47,14 @@ public class InternCandidates extends Candidates{
     public void setUniversityName(String UniversityName) {
         this.UniversityName = UniversityName;
     }
-    
-    
+
+    @Override
+    public String toString() {
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+        String formattedDob = sdf.format(super.getBirthDate());
+        String formattedString = String.format("%-10s%-10s%-20s%-15s%-30s%-30s%-20s%-20s%-20s",
+                super.getCandidateID(), super.getFirstName(), super.getLastName(), formattedDob, super.getPhone(), super.getEmail(), Major, Semester, UniversityName);
+        return formattedString;
+    }
     
 }

@@ -17,11 +17,11 @@ public class Validation {
     
     public boolean checkName (String inp) {
         if (inp.isEmpty()) {
-            System.out.println("Full name can not be empty!!!");
+            System.out.println("This can not be empty!!!");
             return false;
         }
         if (inp.matches("^.*[0-9!@#$%^&*(){}_+-=*/.<>?|].*")) {
-            System.out.println("Name can only contain characters");
+            System.out.println("This can only contain characters");
             return false;
         }
         return true;
@@ -130,6 +130,16 @@ public class Validation {
         } catch (NumberFormatException e) {
             return false;
         }
+    }
+
+    public boolean checkRank(String inp) {
+        String [] data = new String[]{"Excellent", "Good", "Bad"};
+        for (String s : data) {
+            if (s.equals(inp)) {
+                return true;
+            }
+        }
+        return false;
     }
 
 }
