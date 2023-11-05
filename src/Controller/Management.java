@@ -236,6 +236,33 @@ public class Management {
     }
     
     public void findByID(String id) {
+        // hỏi người dùng muốn tìm loại ứng viên nào
+        System.out.println("Which candidates do you want to find: [1].Experience | [2].Fresher | [3].Intern?");
+        String choice = "";
+        do {
+            System.out.print("Enter a number: ");
+            choice = sc.nextLine();
+        } while(!valid.checkInt(choice));
+        int type = Integer.parseInt(choice);
+        // hỏi xong-----------------------------
+
+        // dẫn đến file mà người dùng muốn tìm
+        String fileName = "";
+        if (type == 1) {
+            fileName = fileExp;
+        } else if (type == 2) {
+            fileName = fileFresher;
+        } else if (type == 3) {
+            fileName = fileIntern;
+        }
+        ArrayList<Candidates> check = FileHandler.readFromFile(fileName);
+        // dẫn xong----------------------------
+
+        
+        if(check.isEmpty()) {
+            System.out.println("Empty file");
+            return;
+        }
 
     }
 
