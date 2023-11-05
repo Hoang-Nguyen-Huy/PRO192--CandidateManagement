@@ -5,6 +5,7 @@
  */
 package Controller;
 
+import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -14,7 +15,13 @@ import java.util.regex.Pattern;
  * @author Dell Latitude 7490
  */
 public class Validation {
-    
+
+    public boolean checkID(String inp) {
+        if (inp.matches("C%03d")) {
+            return true;
+        }
+        return false;
+    }
     public boolean checkName (String inp) {
         if (inp.isEmpty()) {
             System.out.println("This can not be empty!!!");
@@ -48,7 +55,7 @@ public class Validation {
             return false;
         }
 
-        if (!FileHandler.duplicate(inp, Management.fileName)) {
+        if (!FileHandler.duplicate(inp, Management.fileExp) || !FileHandler.duplicate(inp, Management.fileFresher) || !FileHandler.duplicate(inp, Management.fileIntern)) {
             System.out.println("Duplicated phone number !!!");
             return false;
         }
@@ -67,7 +74,7 @@ public class Validation {
             return false;
         }
 
-        if (!FileHandler.duplicate(inp, Management.fileName)) {
+        if (!FileHandler.duplicate(inp, Management.fileExp) || !FileHandler.duplicate(inp, Management.fileFresher) || !FileHandler.duplicate(inp, Management.fileIntern)) {
             System.out.println("Duplicated email!!!");
             return false;
         }

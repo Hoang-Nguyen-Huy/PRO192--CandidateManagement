@@ -45,7 +45,9 @@ public class FileHandler {
         ArrayList<Candidates> list = new ArrayList<>();
         try (BufferedReader reader = new BufferedReader(new FileReader(fileName))) {
             String line;
+            boolean isEmpty = true;
             while((line = reader.readLine()) != null) {
+                isEmpty = false;
                 String[] data = line.split("\\s+");
                 String id = data[0];
                 String first = data[1];
@@ -55,6 +57,9 @@ public class FileHandler {
                 String email = data[5];
                 Candidates candidates = new Candidates(id, first, last, dob, phone, email);
                 list.add(candidates);
+            }
+            if (isEmpty) {
+                return true;
             }
         } catch (IOException | ParseException e) {
             e.printStackTrace();

@@ -21,9 +21,20 @@ import java.util.Scanner;
  * @author Dell Latitude 7490
  */
 public class Management {
-    public static String fileName = "src/data/Managering.txt";
+    public static String fileExp = "src/data/Exp.txt";
+    public static String fileFresher = "src/data/Fresher.txt";
+    public static String fileIntern = "src/data/Intern.txt";
     Scanner sc = new Scanner(System.in);
     Validation valid = new Validation();
+
+    public String enterID() {
+        String inp;
+        do {
+            System.out.print("Enter id that you want to find: ");
+            inp = sc.nextLine();
+        } while(!valid.checkID(inp));
+        return inp;
+    }
     public String enterName() {
         String name;
         do {
@@ -67,10 +78,8 @@ public class Management {
     }
     public String enterSkill() {
         String inp;
-        do {
-            System.out.print("Enter your best skill: ");
-            inp = sc.nextLine();
-        } while(!valid.checkName(inp));
+        System.out.print("Enter your best skill: ");
+        inp = sc.nextLine();
         return inp;
     }
     public String enterRank() {
@@ -118,18 +127,18 @@ public class Management {
         //các thông tin có thể có thêm
         Candidates candidates = null;
 
-        int expYear;
-        String proSkill;
+        int expYear = 0;
+        String proSkill = "";
         //.. ExpCandidates
 
         Date graduationDate = null;
-        String graduationRank;
-        String education;
+        String graduationRank = "";
+        String education = "";
         //..Fresher
 
-        String major;
-        int semester;
-        String UniversityName;
+        String major = "";
+        int semester = 0;
+        String UniversityName = "";
         //..Intern
 
         //----------------------
@@ -158,23 +167,10 @@ public class Management {
         String phone = enterPhone();
         String email = enterEmail();
 
-        //lấy dữ liệu từ file để kiểm tra trong file đã có bao nhiêu Candidates
-        ArrayList<Candidates> check = FileHandler.readFromFile(fileName);
-
-        // nếu file trống thì Candidate đầu tiên được nhập vào file sẽ có id là C001
-        String candidateID;
-        if (check.isEmpty()) {
-            candidateID = "C001";
-        } else {
-            int lastID = Integer.parseInt(check.get(check.size() - 1).getCandidateID().substring(1));
-            candidateID = String.format("C%03d", lastID + 1);
-        }
-
         int type = enterType();
         if (type == 1) {
             expYear = enterExpYear();
             proSkill = enterSkill();
-            candidates = new ExpCandidates(candidateID, first, last, DOB, phone, email, expYear, proSkill);
         } else if (type == 2) {
             String gD = "";
             boolean isEnterGraduationDate = true;
@@ -193,15 +189,42 @@ public class Management {
             }
             graduationRank = enterRank();
             education = enterEducation();
-            candidates = new FresherCandidates(candidateID, first, last, DOB, phone, email, graduationDate, graduationRank, education);
         } else if (type == 3) {
             major = enterMajor();
             semester = enterSemester();
             UniversityName = enterUniversityName();
-            candidates = new InternCandidates(candidateID, first, last, DOB, phone, email, major, semester, UniversityName);
         }
         // nhập xong thông tin
 
+
+        //lấy dữ liệu từ file để kiểm tra trong file đã có bao nhiêu Candidates
+        String fileName = "";
+        if (type == 1) {
+            fileName = fileExp;
+        } else if (type == 2) {
+            fileName = fileFresher;
+        } else if (type == 3) {
+            fileName = fileIntern;
+        }
+
+        ArrayList<Candidates> check = FileHandler.readFromFile(fileName);
+
+        // nếu file trống thì Candidate đầu tiên được nhập vào file sẽ có id là C001
+        String candidateID;
+        if (check.isEmpty()) {
+            candidateID = "C001";
+        } else {
+            int lastID = Integer.parseInt(check.get(check.size() - 1).getCandidateID().substring(1));
+            candidateID = String.format("C%03d", lastID + 1);
+        }
+
+        if (type == 1) {
+            candidates = new ExpCandidates(candidateID, first, last, DOB, phone, email, expYear, proSkill);
+        } else if (type == 2) {
+            candidates = new FresherCandidates(candidateID, first, last, DOB, phone, email, graduationDate, graduationRank, education);
+        } else if (type == 3) {
+            candidates = new InternCandidates(candidateID, first, last, DOB, phone, email, major, semester, UniversityName);
+        }
 
         ArrayList<Candidates> list = new ArrayList<Candidates>();
         list.add(candidates);
@@ -212,8 +235,12 @@ public class Management {
         System.out.println("Added successfully!!!");
     }
     
-    public void find(int id) {
-        
+    public void findByID(String id) {
+
+    }
+
+    public void findByName(String name) {
+
     }
     
     public void update(int id) {

@@ -1,3 +1,0 @@
-C001      Hoang     Nguyen              13/02/2004     0123456789                    hoang@gmail.com               4         XaoLon    
-C002      Hung      Mai                 14/10/2004     0123214312                    hung@gmail.com                Sat Oct 10 00:00:00 ICT 2026Good      University
-C003      Nam       Nguyen              17/05/2004     0123232131                    nam@gmail.com                 SE                  3                   FPT                 
