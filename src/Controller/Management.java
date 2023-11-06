@@ -235,7 +235,7 @@ public class Management {
         System.out.println("Added successfully!!!");
     }
     
-    public void findByID(String id) {
+    public void findByID() {
         // hỏi người dùng muốn tìm loại ứng viên nào
         System.out.println("Which candidates do you want to find: [1].Experience | [2].Fresher | [3].Intern?");
         String choice = "";
@@ -256,14 +256,27 @@ public class Management {
             fileName = fileIntern;
         }
         ArrayList<Candidates> check = FileHandler.readFromFile(fileName);
-        // dẫn xong----------------------------
-
-        
         if(check.isEmpty()) {
             System.out.println("Empty file");
             return;
         }
+        // dẫn xong----------------------------
 
+        //bắt đầu findByID trong check
+        boolean found = false;
+        String id = enterID();
+        Candidates result = null;
+        for (Candidates c : check) {
+            if(c.getCandidateID().equals(id)) {
+                result = c;
+                found = true;
+            }
+        }
+        if (!found) {
+            System.out.println("This: " + id + " is not found!!!");
+        }
+        System.out.println(result.toString());
+        //find xong-------------------
     }
 
     public void findByName(String name) {

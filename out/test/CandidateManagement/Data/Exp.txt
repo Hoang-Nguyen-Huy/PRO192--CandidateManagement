@@ -1,1 +1,2 @@
 C001      Hoang     Nguyen              13/02/2004     0213134312                    hoang@gmail.com               4         Java      
+C002      Nam       Pham                01/02/2004     0123214312                    nam@gmail.com                 5         C         

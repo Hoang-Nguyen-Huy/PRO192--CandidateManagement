@@ -17,7 +17,7 @@ import java.util.regex.Pattern;
 public class Validation {
 
     public boolean checkID(String inp) {
-        if (inp.matches("C%03d")) {
+        if (inp.matches("C\\d{3}")) {
             return true;
         }
         return false;
