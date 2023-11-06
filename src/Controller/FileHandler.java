@@ -1,9 +1,7 @@
 package Controller;
 
-import Model.Candidates;
-import Model.ExpCandidates;
-import Model.FresherCandidates;
-import Model.InternCandidates;
+import Model.*;
+import com.sun.xml.internal.ws.policy.privateutil.PolicyUtils;
 
 import java.io.*;
 import java.text.ParseException;
@@ -13,6 +11,7 @@ import java.util.Date;
 
 public class FileHandler {
 
+    // quản lý candidates
     public static ArrayList<Candidates> readFromFile (String fileName) {
         ArrayList<Candidates> candidates = new ArrayList<>();
             if (fileName.equals(Management.fileExp)) {
@@ -127,5 +126,70 @@ public class FileHandler {
         }
         return true;
     }
+    // xong -----------
 
+
+    // quản lý tài khoản người dùng
+
+    public static void signup(User user, String fileName) {
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(fileName, true))) {
+            writer.write(user.toString());
+            writer.newLine();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+    public static boolean checkDuplicate(String inp, String fileName) {
+        ArrayList<User> list = new ArrayList<User>();
+        try (BufferedReader reader = new BufferedReader(new FileReader(fileName))) {
+            String line;
+            boolean isEmpty = true;
+            while((line = reader.readLine()) != null) {
+                isEmpty = false;
+                String[] data = line.split("\\s+");
+                String username = data[0];
+                String password = data[1];
+                User u = new User(username, password);
+                list.add(u);
+            }
+            if (isEmpty) {
+                return true;
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        for (User user1 : list) {
+            if (user1.getUsername().equals(inp)) {
+                return false;
+            }
+        }
+        return true;
+    }
+    public static boolean checkSignIn(User user, String fileName) {
+        ArrayList<User> list = new ArrayList<User>();
+        try (BufferedReader reader = new BufferedReader(new FileReader(fileName))) {
+            String line;
+            boolean isEmpty = true;
+            while((line = reader.readLine()) != null) {
+                isEmpty = false;
+                String[] data = line.split("\\s+");
+                String username = data[0];
+                String password = data[1];
+                User user1 = new User(username, password);
+                list.add(user1);
+            }
+            if (isEmpty) {
+                return false;
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        for (User user1 : list) {
+            if (user1.getUsername().equals(user.getUsername()) && user1.getPassword().equals(user.getPassword())) {
+                return true;
+            }
+        }
+        return false;
+    }
+    // xong------------
 }

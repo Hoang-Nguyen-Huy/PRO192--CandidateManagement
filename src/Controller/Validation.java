@@ -16,6 +16,22 @@ import java.util.regex.Pattern;
  */
 public class Validation {
 
+    public boolean checkUserName(String inp) {
+        if (inp.isEmpty()) {
+            System.out.println("This can not be empty!!!");
+            return false;
+        }
+        if (inp.matches("^.*[0-9!@#$%^&*(){}_+-=*/.<>?|].*")) {
+            System.out.println("This can only contain characters");
+            return false;
+        }
+
+        if (!FileHandler.checkDuplicate(inp, SignIn.fileSignUp) || !FileHandler.checkDuplicate(inp, SignIn.fileSignIn)) {
+            return false;
+        }
+        return true;
+    }
+
     public boolean checkID(String inp) {
         if (inp.matches("C\\d{3}")) {
             return true;

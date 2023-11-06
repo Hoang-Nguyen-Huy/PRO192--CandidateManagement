@@ -6,6 +6,7 @@
 package main;
 
 import Controller.Management;
+import Controller.RunManagement;
 
 /**
  *
@@ -13,7 +14,7 @@ import Controller.Management;
  */
 public class Main {
     public static void main(String[] args) {
-        Management mn = new Management();
-        mn.delete();
+        RunManagement run = new RunManagement();
+        run.RunningProgram();
     }
 }

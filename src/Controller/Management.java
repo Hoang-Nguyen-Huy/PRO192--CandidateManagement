@@ -29,6 +29,14 @@ public class Management {
     Scanner sc = new Scanner(System.in);
     Validation valid = new Validation();
 
+    public int enterChoice() {
+        String inp;
+        do {
+            System.out.print("Enter choices: ");
+            inp = sc.nextLine();
+        } while(!valid.checkInt(inp));
+        return Integer.parseInt(inp);
+    }
     public String enterID() {
         String inp;
         do {
