@@ -9,12 +9,14 @@ import Model.User;
 import View.MenuManagement;
 
 import java.io.PrintWriter;
+import java.util.Scanner;
 
 /**
  *
  * @author Dell Latitude 7490
  */
 public class RunManagement {
+    Scanner sc = new Scanner(System.in);
     SignUp su = new SignUp();
     SignIn si = new SignIn();
     MenuManagement ui = new MenuManagement();
@@ -78,7 +80,8 @@ public class RunManagement {
             int choices;
             switch (choices = mn.enterChoice()) {
                 case 1:
-                    String username = su.enterUserName();
+                    System.out.print("Enter username: ");
+                    String username = sc.nextLine();
                     String password = su.enterPassword();
                     User user = new User(username, password);
                     if (si.admin(username, password)) {
@@ -123,7 +126,7 @@ public class RunManagement {
                     mn.show();
                     break;
                 case 6:
-
+                    mn.GrantingAccount();
                     break;
                 case 7:
                     mn.showAllAccount(SignIn.fileSignUp);

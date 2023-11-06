@@ -27,6 +27,7 @@ public class Validation {
         }
 
         if (!FileHandler.checkDuplicate(inp, SignIn.fileSignUp) || !FileHandler.checkDuplicate(inp, SignIn.fileSignIn)) {
+            System.out.println("Duplicated username !!!");
             return false;
         }
         return true;

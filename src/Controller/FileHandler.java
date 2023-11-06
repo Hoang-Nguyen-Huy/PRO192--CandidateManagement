@@ -146,6 +146,27 @@ public class FileHandler {
         }
         return result;
     }
+    public static void signin(ArrayList<User> list, String fileName) {
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(fileName, true))) {
+            for (User user : list) {
+                writer.write(user.toString());
+                writer.newLine();
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static void updateFileGrating(ArrayList<User> list, String fileName) {
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(fileName))) {
+            for (User user : list) {
+                writer.write(user.toString());
+                writer.newLine();
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
     public static void signup(User user, String fileName) {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(fileName, true))) {
             writer.write(user.toString());

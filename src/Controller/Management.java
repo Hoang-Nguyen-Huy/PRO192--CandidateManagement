@@ -25,6 +25,7 @@ public class Management {
     public static String fileIntern = "src/data/Intern.txt";
     Scanner sc = new Scanner(System.in);
     Validation valid = new Validation();
+    SignUp su = new SignUp();
 
     public int enterChoice() {
         String inp;
@@ -461,6 +462,36 @@ public class Management {
 
 
     // account management
+    public void GrantingAccount() {
+        ArrayList<User> addSignIn = new ArrayList<User>();
+
+        //show full bảng granting để cho phép chọn tài khoản sẽ có quyền đăng nhập
+        showAllAccount(SignIn.fileGranting);
+        ArrayList<User> check = FileHandler.read(SignIn.fileGranting);
+
+        System.out.print("Enter username: ");
+        String username = sc.nextLine();
+
+        boolean found = false;
+
+        for (User user : check) {
+            if (user.getUsername().equals(username)) {
+                addSignIn.add(user);
+                found = true;
+                check.remove(user);
+                break;
+            }
+        }
+
+        if (found) {
+            FileHandler.signin(addSignIn, SignIn.fileSignIn);
+            FileHandler.updateFileGrating(check, SignIn.fileGranting);
+            System.out.println("Granting successfully !!!");
+        } else {
+            System.out.println("Username not found.");
+        }
+        //xong
+    }
     public void showAllAccount(String fileName) {
         System.out.println("Username | Password");
         ArrayList<User> check = FileHandler.read(fileName);
