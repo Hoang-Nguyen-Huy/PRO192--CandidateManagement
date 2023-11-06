@@ -279,8 +279,52 @@ public class Management {
         //find xong-------------------
     }
 
-    public void findByName(String name) {
+    public void findByName() {
+        // hỏi người dùng muốn tìm loại ứng viên nào
+        System.out.println("Which candidates do you want to find: [1].Experience | [2].Fresher | [3].Intern?");
+        String choice = "";
+        do {
+            System.out.print("Enter a number: ");
+            choice = sc.nextLine();
+        } while(!valid.checkInt(choice));
+        int type = Integer.parseInt(choice);
+        // hỏi xong-----------------------------
 
+        // dẫn đến file mà người dùng muốn tìm
+        String fileName = "";
+        if (type == 1) {
+            fileName = fileExp;
+        } else if (type == 2) {
+            fileName = fileFresher;
+        } else if (type == 3) {
+            fileName = fileIntern;
+        }
+        ArrayList<Candidates> check = FileHandler.readFromFile(fileName);
+        if(check.isEmpty()) {
+            System.out.println("Empty file");
+            return;
+        }
+        // dẫn xong----------------------------
+
+        //bắt đầu findByName trong check
+        ArrayList<Candidates> result = new ArrayList<Candidates>();
+        boolean found = false;
+        System.out.print("Enter name that you want to find (name = first name + last name): ");
+        String name = enterName();
+        for (Candidates c : check) {
+            String temp = c.getFirstName() + " " + c.getLastName();
+            if(temp.equals(name)) {
+                found = true;
+                result.add(c);
+            }
+        }
+        if (!found) {
+            System.out.println("No name is found");
+            return;
+        }
+        for (Candidates c : result) {
+            System.out.println(c.toString());
+        }
     }
     
     public void update(int id) {
