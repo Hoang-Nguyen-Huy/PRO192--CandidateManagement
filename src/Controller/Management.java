@@ -21,6 +21,8 @@ import java.util.Scanner;
  * @author Dell Latitude 7490
  */
 public class Management {
+    String usefulID = "";
+    int usefulType;
     public static String fileExp = "src/data/Exp.txt";
     public static String fileFresher = "src/data/Fresher.txt";
     public static String fileIntern = "src/data/Intern.txt";
@@ -243,16 +245,16 @@ public class Management {
             System.out.print("Enter a number: ");
             choice = sc.nextLine();
         } while(!valid.checkInt(choice));
-        int type = Integer.parseInt(choice);
+        usefulType = Integer.parseInt(choice);
         // hỏi xong-----------------------------
 
         // dẫn đến file mà người dùng muốn tìm
         String fileName = "";
-        if (type == 1) {
+        if (usefulType == 1) {
             fileName = fileExp;
-        } else if (type == 2) {
+        } else if (usefulType == 2) {
             fileName = fileFresher;
-        } else if (type == 3) {
+        } else if (usefulType == 3) {
             fileName = fileIntern;
         }
         ArrayList<Candidates> check = FileHandler.readFromFile(fileName);
@@ -264,16 +266,16 @@ public class Management {
 
         //bắt đầu findByID trong check
         boolean found = false;
-        String id = enterID();
+        usefulID = enterID();
         Candidates result = null;
         for (Candidates c : check) {
-            if(c.getCandidateID().equals(id)) {
+            if(c.getCandidateID().equals(usefulID)) {
                 result = c;
                 found = true;
             }
         }
         if (!found) {
-            System.out.println("This: " + id + " is not found!!!");
+            System.out.println("This: " + usefulID + " is not found!!!");
         }
         System.out.println(result.toString());
         //find xong-------------------
@@ -327,8 +329,61 @@ public class Management {
         }
     }
     
-    public void update(int id) {
-        
+    public void update() {
+        // Bắt người dùng tìm người theo Id để cập nhật thông tin
+        findByID();
+        //---
+
+        // Hỏi người dùng muốn cập nhật thông tin nào
+        System.out.println("What information do you want to update? [1].Name | [2].Phone | [3].Email?");
+        String choice = "";
+        do {
+            System.out.print("Enter a number: ");
+            choice = sc.nextLine();
+        } while (!valid.checkInt(choice) && Integer.parseInt(choice) <= 3 && Integer.parseInt(choice) >= 1);
+        int type = Integer.parseInt(choice);
+        //xong-------------------------------------
+
+
+        //kiếm tra xem người dùng muốn thay đổi thông tin nào và bắt đầu cho update
+        String fileName = "";
+        if (usefulType == 1) {
+            fileName = fileExp;
+        } else if (usefulType == 2) {
+            fileName = fileFresher;
+        } else if (usefulType == 3) {
+            fileName = fileIntern;
+        }
+        ArrayList<Candidates> check = FileHandler.readFromFile(fileName);
+
+        for (Candidates c : check) {
+            if (c.getCandidateID().equals(usefulID)) {
+                if (type == 1) {
+                    System.out.print("New first name. ");
+                    String newFirst = enterName();
+                    c.setFirstName(newFirst);
+
+                    System.out.print("New last name. ");
+                    String newLast = enterName();
+                    c.setLastName(newLast);
+                } else if (type == 2) {
+                    System.out.print("New phone. ");
+                    String newPhone = enterPhone();
+                    c.setPhone(newPhone);
+                } else if (type == 3) {
+                    System.out.print("New email. ");
+                    String newEmail = enterEmail();
+                    c.setEmail(newEmail);
+                }
+                break;
+            }
+        }
+        // xong ----------------------------------
+
+
+        //Ghi lại danh sách vào file
+        FileHandler.updateToFile(check, fileName);
+        System.out.println("Update successfully!!!!!");
     }
     
     public void delete(int id) {
