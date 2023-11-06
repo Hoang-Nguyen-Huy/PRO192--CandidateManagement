@@ -130,7 +130,22 @@ public class FileHandler {
 
 
     // quản lý tài khoản người dùng
-
+    public static ArrayList<User> read (String fileName) {
+        ArrayList<User> result = new ArrayList<User>();
+        try (BufferedReader reader = new BufferedReader(new FileReader(fileName))) {
+            String line;
+            while((line = reader.readLine()) != null) {
+                String []data = line.split("\\s+");
+                String username = data[0];
+                String password = data[1];
+                User user = new User(username, password);
+                result.add(user);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return result;
+    }
     public static void signup(User user, String fileName) {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(fileName, true))) {
             writer.write(user.toString());

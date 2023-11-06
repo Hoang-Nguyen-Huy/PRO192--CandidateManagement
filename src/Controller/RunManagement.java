@@ -126,16 +126,19 @@ public class RunManagement {
 
                     break;
                 case 7:
-
+                    mn.showAllAccount(SignIn.fileSignUp);
                     break;
                 case 8:
-
+                    mn.showAllAccount(SignIn.fileSignIn);
+                    break;
+                case 9:
+                    mn.showAllAccount(SignIn.fileGranting);
                     break;
                 case 0:
                     isAdmin = false;
                     break;
                 default:
-                    System.out.println("Please enter choices from 0-8!!!!");
+                    System.out.println("Please enter choices from 0-9!!!!");
                     break;
             }
         }

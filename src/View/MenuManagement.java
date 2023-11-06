@@ -47,6 +47,7 @@ public class MenuManagement {
         System.out.println("[6]. Granting sign in");
         System.out.println("[7]. Show all sign up user");
         System.out.println("[8]. Show all sign in user");
+        System.out.println("[9]. Show all granting list");
         System.out.println("[0]. Log out");
     }
 }

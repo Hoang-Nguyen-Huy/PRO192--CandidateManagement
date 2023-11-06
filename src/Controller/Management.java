@@ -5,10 +5,7 @@
  */
 package Controller;
 
-import Model.Candidates;
-import Model.ExpCandidates;
-import Model.FresherCandidates;
-import Model.InternCandidates;
+import Model.*;
 
 import java.io.PrintWriter;
 import java.text.SimpleDateFormat;
@@ -133,6 +130,7 @@ public class Management {
         return inp;
     }
 
+    // candidates management
     public void add() {
         //các thông tin có thể có thêm
         Candidates candidates = null;
@@ -459,6 +457,17 @@ public class Management {
             System.out.println(c.toString());
         }
     }
+    //---------------------
 
+
+    // account management
+    public void showAllAccount(String fileName) {
+        System.out.println("Username | Password");
+        ArrayList<User> check = FileHandler.read(fileName);
+        for (User user : check) {
+            System.out.println(user.toString());
+        }
+    }
+    //-------------------
 
 }

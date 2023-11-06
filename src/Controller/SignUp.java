@@ -33,5 +33,6 @@ public class SignUp {
         FileHandler.signup(user, SignIn.fileSignUp);
         FileHandler.signup(user, SignIn.fileGranting);
         System.out.println("User registered successfully!");
+        System.out.println("Waiting for granting permission");
     }
 }
