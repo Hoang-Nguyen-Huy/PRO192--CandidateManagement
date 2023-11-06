@@ -32,7 +32,7 @@ public class Management {
     public String enterID() {
         String inp;
         do {
-            System.out.print("Enter id that you want to find: ");
+            System.out.print("Enter id: ");
             inp = sc.nextLine();
         } while(!valid.checkID(inp));
         return inp;
@@ -386,12 +386,70 @@ public class Management {
         System.out.println("Update successfully!!!!!");
     }
     
-    public void delete(int id) {
-        
+    public void delete() {
+        //show ra danh sách và cho người dùng chọn ID nhân viên muốn xóa
+        show();
+        //xong
+
+
+        // bắt đầu cho phép nguời dùng nhập ID
+        String fileName = "";
+        if (usefulType == 1) {
+            fileName = fileExp;
+        } else if (usefulType == 2) {
+            fileName = fileFresher;
+        } else if (usefulType == 3) {
+            fileName = fileIntern;
+        }
+        System.out.print("ID that you want to delete. ");
+        String id = enterID();
+        ArrayList<Candidates> check = FileHandler.readFromFile(fileName);
+
+        for (Candidates c : check) {
+            if (c.getCandidateID().equals(id)) {
+                check.remove(c);
+                break;
+            }
+        }
+        //cập nhật lại vào file
+        FileHandler.updateToFile(check, fileName);
+        // xong-----------------------------
+
+        System.out.println("Delete successfully");
+
     }
     
     public void show() {
-        
+        // hỏi người dùng muốn tìm loại ứng viên nào
+        System.out.println("Which candidates do you want to show: [1].Experience | [2].Fresher | [3].Intern?");
+        String choice = "";
+        do {
+            System.out.print("Enter a number: ");
+            choice = sc.nextLine();
+        } while(!valid.checkInt(choice));
+        usefulType = Integer.parseInt(choice);
+        // hỏi xong-----------------------------
+
+        // dẫn đến file mà người dùng muốn show
+        String fileName = "";
+        if (usefulType == 1) {
+            fileName = fileExp;
+        } else if (usefulType == 2) {
+            fileName = fileFresher;
+        } else if (usefulType == 3) {
+            fileName = fileIntern;
+        }
+        ArrayList<Candidates> check = FileHandler.readFromFile(fileName);
+        if(check.isEmpty()) {
+            System.out.println("Empty file");
+            return;
+        }
+        //xong----------------------------
+
+        //bắt đấu show
+        for(Candidates c : check) {
+            System.out.println(c.toString());
+        }
     }
 
 
